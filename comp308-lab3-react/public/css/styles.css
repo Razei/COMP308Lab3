@@ -1,0 +1,130 @@
+*{
+    box-sizing: border-box;
+}
+
+.colour-block-1,
+.colour-block-2,
+.colour-block-3,
+.colour-block-4,
+.colour-block-5 {
+    height: 5rem;
+}
+
+.colour-block-1{
+    background-color: var(--colour-1);
+}
+
+.colour-block-2{
+    background-color: var(--colour-2);
+}
+
+.colour-block-3{
+    background-color: var(--colour-3);
+}
+
+.colour-block-4{
+    background-color: var(--colour-4);
+}
+
+.colour-block-5{
+    background-color: var(--colour-5);
+}
+
+.btn-primary{
+    background-color:var(--colour-2);
+    border-color: var(--colour-2);
+}
+
+html{
+    border: 0;
+    margin: 0;
+    height: 100vh;
+    min-height: 100vh;
+    position: relative;
+}
+
+body {
+    height: 100%;
+    position: relative;
+    padding: 1px;
+}
+
+.bg-image-container{
+    height: 100%;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index: -1;
+    overflow: hidden;
+    position: absolute;
+}
+
+.bg-image{
+    height: 100%;
+    background-image: url('/img/background-2.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    transform: scale(1.1);
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: var(--colour-2);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+}
+
+.absolute-centered{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.shadowed {
+    background-color: #efefef;
+    box-shadow: 0 0 32px 0 rgba(0,0,0,0.15);
+}
+
+.flexible-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.card-container{
+    width: 500px;
+}
+
+.custom-card{
+    transition: transform .2s, background-color .2s;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.custom-card span{
+    text-decoration: none;
+    color: black;
+}
+
+.custom-card:hover{
+    background-color: var(--colour-2);
+    color: white;
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
+.custom-card:hover span{
+    color: white;
+}
+
+i {
+    color: var(--colour-1);
+    font-size: 2rem;
+    vertical-align: middle;
+    line-height: 0;
+}
