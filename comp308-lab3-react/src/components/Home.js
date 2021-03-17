@@ -43,9 +43,9 @@ function Home() {
                                 }
 
                                 return (
-                                    <a href={item.link} className={"col-12 custom-card shadowed" + style}>
+                                    <a href={item.link} className={`col-12 custom-card shadowed ${style}`}>
                                         <div className="p-4">
-                                            <i className="<%=item.icon%>"/>
+                                            <i className={item.icon}/>
                                             <span className="ml-4">{item.linkText}</span>
                                         </div>
                                     </a>
