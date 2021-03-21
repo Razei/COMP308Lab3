@@ -3,7 +3,7 @@ import React, { useState, useEffect }  from 'react';
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
 
-function LoginStudent(props) {
+function LoginAdmin(props) {
     const iconStyle = {
         color: 'white',
         fontSize: '1.5rem',
@@ -15,7 +15,7 @@ function LoginStudent(props) {
     //store input field data, user name and password
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const apiUrl = "http://localhost:3001";
+    const apiUrl = "http://localhost:3001/admin";
     const [error, setError] = useState({msg: '' });
 
     //send username and password to the server
@@ -36,7 +36,7 @@ function LoginStudent(props) {
             const res = await axios.post(`${apiUrl}/signin`, loginData);
 
             if (res.data.role){
-                props.history.push('/student/' + res.data._id);
+                props.history.push('/admin/' + res.data._id);
             } else {
                 
             }
@@ -61,6 +61,7 @@ function LoginStudent(props) {
             console.log(e);
         }
     };
+
     //runs the first time the view is rendered
     //to check if user is signed in
     useEffect(() => {
@@ -106,4 +107,4 @@ function LoginStudent(props) {
     );
 }
 
-export default withRouter(LoginStudent);
+export default withRouter(LoginAdmin);
