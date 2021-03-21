@@ -3,6 +3,6 @@
 module.exports = {
     db: 'mongodb://localhost/students',
     //    db: 'mongodb://localhost/customer-store-yourname',
-
+    secretKey: 'real_secret',
     sessionSecret: 'developmentSessionSecret'
 };

@@ -14,11 +14,10 @@ module.exports = function () {
         .catch(err => {
             console.log('Error', err);
         });
-
-    // Load the 'User' model
-    // require('../app/models/student.server.model');
-
-
+    
+    require('../app/models/student.server.model');
+    require('../app/models/course.server.model');
+    
     // Return the Mongoose connection instance
     return db;
 };

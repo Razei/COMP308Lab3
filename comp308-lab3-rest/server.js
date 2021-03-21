@@ -15,6 +15,57 @@ const db = mongoose();
 // Create a new Express application instance
 const app = express();
 
+const Course = require('mongoose').model('Course');
+const Student = require('mongoose').model('Student');
+
+Course.count((err, count) => {
+    if (count == 0) {
+        let courseDocuments = [];
+    
+        Array(5).fill().forEach((_,i) => {
+            courseDocuments.push(new Course({'courseCode': `A${i}`, 'courseName': 'b', 'section': '006', 'semester': '2'}));
+        });
+    
+        Course.create(courseDocuments, (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+
+        const student1 = new Student({
+            'firstName': 'A', 
+            'lastName': 'B', 
+            'email': 'example@gmail.com', 
+            'password': 'password', 
+            'courses': [
+                courseDocuments[0],
+                courseDocuments[1],
+                courseDocuments[2],
+            ]
+        });
+
+        const student2 = new Student({
+            'firstName': 'Z', 
+            'lastName': 'X', 
+            'email': 'example2@gmail.com', 
+            'password': 'password', 
+            'courses': [
+                courseDocuments[3],
+                courseDocuments[4],
+            ]
+        });
+
+        Student.create([student1, student2], (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+
+    }
+});
+
+
+
 // Use the Express application instance to listen to the '3000' port
 app.listen(3001);
 
