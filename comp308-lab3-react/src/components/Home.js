@@ -35,7 +35,7 @@ function Home(props) {
                     </div>
 
                     {
-                        indexData?.map((item, index) => {
+                        props.data?.map((item, index) => {
                             let style = "";
                             if (index !== indexData.length - 1) {
                                 style = "mb-4"
