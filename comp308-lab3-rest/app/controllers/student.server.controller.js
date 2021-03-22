@@ -56,6 +56,7 @@ module.exports = {
                 return next(err);
             } else {
                 // Call the next middleware
+                req.user = JSON.parse(JSON.stringify(user));
                 next();
             }
         });
@@ -223,17 +224,19 @@ module.exports = {
     },
 
     updateStudentCourses: (req, res, next) => {
-        const studentDocument = new Course(req.body); //get data from ejs page and attaches them to the model
-        const filter = {_id: req.params.id};
-        console.log("body: " + req.body);
+        // using the req.user that was set in the userById() param function
+        let student = req.user;
+        courses = req.body;
+        delete student._id;
+        student.courses = req.body;
 
-        Student.findOneAndUpdate(filter, studentDocument, {upsert: true}, (err) => {
+        Student.findOneAndUpdate(req.user._id, {"$set": {"courses":courses}}, (err) => {
             if (err) {
                 // Call the next middleware with an error message
                 return next(err);
             } else {
                 // Use the 'response' object to send a JSON response
-                res.json(studentDocument);
+                res.json(student);
             }
         }); 
     },

@@ -1,7 +1,7 @@
 import {Link, withRouter} from 'react-router-dom';
 import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
-import StudentAddCourse from './StudentCourseManagement';
+import StudentCourseManagement from './StudentCourseManagement';
 
 function Home(props) {
     // constant index data for home page

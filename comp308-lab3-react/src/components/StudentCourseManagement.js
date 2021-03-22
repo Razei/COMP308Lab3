@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Spinner, Jumbotron, Form, Button, InputGroup} from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 
-class StudentAddCourse extends React.Component {
+class StudentCourseManagement extends React.Component {
     state = {
         courses: [],
         showLoading: false,
@@ -20,11 +20,11 @@ class StudentAddCourse extends React.Component {
         this.courses = [];
     }
 
+
     componentDidMount() {
         axios.get(`${this.apiUrl}/courses`).then((result) => {
-            this.setShowLoading(false);
             this.courses = result.data;
-            this.forceUpdate();
+            this.setShowLoading(false);
             // this.props.history.push('/show/' + result.data._id)
         }).catch((error) => this.setShowLoading(false));
     }
@@ -33,11 +33,11 @@ class StudentAddCourse extends React.Component {
     saveCourse = (e) => {
         this.setShowLoading(true);
         e.preventDefault();
-        const data = this.state.courses;
+        const data = this.state.courses.map(course => Object.values(course)[0]);
 
-        axios.post(`${this.apiUrl}/student/:id/courses`, data).then((result) => {
+        axios.post(`${this.apiUrl}/student/${this.props.match.params.studentId}/courses`, data).then((result) => {
             this.setShowLoading(false);
-            this.props.history.push('/show/' + result.data._id)
+            // this.props.history.push('/show/' + result.data._id);
         }).catch((error) => this.setShowLoading(false));
     };
 
@@ -54,13 +54,18 @@ class StudentAddCourse extends React.Component {
         const courses = this.state.courses;
         const index = courses.findIndex(course => course.name === e.target.name);
         courses.splice(index, 0, {[e.target.name]: e.target.value});
-
         this.setState(prevState => ({...prevState, courses: courses }));
-        console.log(this.state);
     }
 
-    changeCourseCount = (value) => {
+    changeCourseCount = (value, name) => {
         this.setState(prevState => ({...prevState, formControlCount: this.state.formControlCount + value}));
+        
+        if (name){
+            const courses = this.state.courses;
+            const index = courses.findIndex(course => course.name === name);
+            courses.splice(index, 1);
+            this.setState(prevState => ({...prevState, courses: courses }));
+        }
     }
 
     setShowLoading = (value) => {
@@ -84,10 +89,11 @@ class StudentAddCourse extends React.Component {
                         <Form onSubmit={this.saveCourse}>
                             {
                                 Array.from(Array(this.state.formControlCount).keys()).map((_, index) => {
+                                    const name = `course-${index}`;
                                     return (
-                                        <InputGroup className="mb-2">
-                                            <Form.Control required name={`course-${index}`} onChange={this.onSelectChange} as="select" custom>
-                                                <option value="" selected disabled hidden>Choose a course</option>
+                                        <InputGroup key={index} className="mb-2">
+                                            <Form.Control defaultValue={''} required name={name} onChange={this.onSelectChange} as="select" custom>
+                                                <option value="" disabled hidden>Choose a course</option>
                                                 {
                                                     this.courses.map((course, index) => {
                                                         return <option key={index} value={course._id}>{course.courseName}</option>
@@ -96,7 +102,7 @@ class StudentAddCourse extends React.Component {
                                             </Form.Control>
 
                                             <InputGroup.Append>
-                                                <Button variant="outline-danger" onClick={() => this.changeCourseCount(-1)}>
+                                                <Button variant="outline-danger" onClick={() => this.changeCourseCount(-1, name)}>
                                                     <i style={{fontSize: '1rem', color:'unset'}} className="bi bi-trash-fill"></i>
                                                 </Button>
                                             </InputGroup.Append>
@@ -140,4 +146,4 @@ class StudentAddCourse extends React.Component {
     }   
 }
 
-export default withRouter(StudentAddCourse);
+export default withRouter(StudentCourseManagement);
