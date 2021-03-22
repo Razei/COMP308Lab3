@@ -1,7 +1,6 @@
 import Home from "./components/Home";
 import LoginStudent from "./components/StudentLogin";
 import StudentSignUp from "./components/StudentSignUp";
-import StudentHome from "./components/StudentHome";
 import React from "react";
 import {
     BrowserRouter as Router,
@@ -14,17 +13,20 @@ import {
 const indexData = [{
         icon: "bi bi-box-arrow-in-right",
         link: "/student/login",
-        linkText: "Sign In as Student"
+        linkText: "Sign In as Student",
+        screen: "login"
     },
     {
         icon: "bi bi-person-plus-fill",
         link: "/student/signup",
-        linkText: "Sign Up as Student"
+        linkText: "Sign Up as Student",
+        screen: "signup"
     },
     {
         icon: "bi bi-shield-lock",
         link: "/admin/login",
-        linkText: "Admin Portal"
+        linkText: "Admin Portal",
+        screen: "admin"
     },
 ];
 
@@ -32,17 +34,20 @@ const indexData = [{
 const studentHomeData = [{
         icon: "bi bi-journal-plus",
         link: "/student/login",
-        linkText: "Add Course"
+        linkText: "Add Course",
+        screen: "add"
     },
     {
         icon: "bi bi-journal-text",
         link: "#",
-        linkText: "Update Course"
+        linkText: "Update Course",
+        screen: "update"
     },
     {
         icon: "bi bi-journal-x",
         link: "#",
-        linkText: "Drop Course"
+        linkText: "Drop Course",
+        screen: "drop"
     },
 ];
 
@@ -50,10 +55,10 @@ function App() {
   return (
       <Router>
           <Switch>
-              <Route exact path="/" ><Home name={"Course Evaluation"} data={indexData}/></Route>
+              <Route exact path="/" ><Home title={"Course Evaluation"} data={indexData}/></Route>
               <Route path="/student/login"><LoginStudent/></Route>
               <Route path="/student/signup"><StudentSignUp/></Route>
-              <Route path="/student/:studentId"><Home name={"Student Home"} data={studentHomeData}/></Route>
+              <Route path="/student/:studentId"><Home title={"Student Home"} data={studentHomeData}/></Route>
           </Switch>
       </Router>
   );

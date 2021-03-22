@@ -49,6 +49,10 @@ body {
     padding: 1px;
 }
 
+a{
+    cursor: pointer;
+}
+
 .bg-image-container{
     height: 100%;
     top:0;
