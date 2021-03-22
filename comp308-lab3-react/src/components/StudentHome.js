@@ -2,6 +2,7 @@ import {Link, withRouter} from 'react-router-dom';
 import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import StudentCourseManagement from './StudentCourseManagement';
+import StudentCourses from './StudentCourses';
 
 class StudentHome extends React.Component {
     state = {screen: ''};
@@ -21,8 +22,8 @@ class StudentHome extends React.Component {
             case 'add':
                 // pass updateScreen function to child
                 return <StudentCourseManagement updateScreen={this.updateScreen}/>;
-            case 'update':
-                return 'Test';
+            case 'view':
+                return <StudentCourses/>;
             case 'drop':
                 return 'Test';
             default: 

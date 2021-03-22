@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 import {Spinner, Jumbotron, Form, Button, InputGroup} from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
@@ -10,7 +10,7 @@ class StudentCourseManagement extends React.Component {
         formControlCount: 1,
     }
 
-    constructor(props){
+    constructor(){
         super();
         this.iconStyle = {
             color: 'white',
@@ -59,7 +59,7 @@ class StudentCourseManagement extends React.Component {
 
     changeCourseCount = (value, name) => {
         this.setState(prevState => ({...prevState, formControlCount: this.state.formControlCount + value}));
-        
+
         if (name){
             const courses = this.state.courses;
             const index = courses.findIndex(course => course.name === name);
@@ -81,10 +81,6 @@ class StudentCourseManagement extends React.Component {
                 <div className="shadowed">
                     <Jumbotron>
                         <h1 className="mb-4">Course Management</h1>
-                        
-                        <Button className="mb-4" variant="primary" onClick={() => this.changeCourseCount(1)}>
-                            <i style={this.iconStyle} className="bi bi-journal-plus mr-3"></i> Add New
-                        </Button>
 
                         <Form onSubmit={this.saveCourse}>
                             {
@@ -110,25 +106,14 @@ class StudentCourseManagement extends React.Component {
                                     )
                                 })
                             }
-                            <Form.Group>
-                                
-                            </Form.Group>
-
-                            {/* <Form.Group>
-                                <Form.Label>Course Name</Form.Label>
-                                <Form.Control required type="text" name="courseName" id="courseName" value={this.state.course.courseName} onChange={this.onChange} />
-                            </Form.Group>
 
                             <Form.Group>
-                                <Form.Label>Section</Form.Label>
-                                <Form.Control required type="text" name="section" id="section" value={this.state.course.section} onChange={this.onChange} />
+                                <Button variant="success" onClick={() => this.changeCourseCount(1)}>
+                                    <i style={this.iconStyle} className="bi bi-journal-plus"></i>
+                                </Button>
                             </Form.Group>
-
-                            <Form.Group>
-                                <Form.Label>Semester</Form.Label>
-                                <Form.Control required type="number" name="semester" id="semester" value={this.state.course.semester} onChange={this.onChange} />
-                            </Form.Group> */}
-
+                            
+                            <hr/>
                             {this.state.showLoading ? 
                                 <Button variant="primary" disabled>
                                     <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />

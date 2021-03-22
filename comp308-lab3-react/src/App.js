@@ -32,23 +32,18 @@ const indexData = [{
 ];
 
 // constant index data for home page
-const studentHomeData = [{
-        icon: "bi bi-journal-plus",
-        link: "/student/login",
-        linkText: "Add Course",
-        screen: "add"
-    },
+const studentHomeData = [
     {
         icon: "bi bi-journal-text",
         link: "#",
-        linkText: "Update Course",
-        screen: "update"
+        linkText: "Course Management",
+        screen: "add"
     },
     {
-        icon: "bi bi-journal-x",
+        icon: "bi bi-journals",
         link: "#",
-        linkText: "Drop Course",
-        screen: "drop"
+        linkText: "View Courses",
+        screen: "view"
     },
 ];
 
