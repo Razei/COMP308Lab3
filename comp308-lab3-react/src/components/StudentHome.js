@@ -1,7 +1,7 @@
 import {Link, withRouter} from 'react-router-dom';
 import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
-import StudentAddCourse from './StudentAddCourse';
+import StudentAddCourse from './StudentCourseManagement';
 
 class StudentHome extends React.Component {
     state = {screen: ''};

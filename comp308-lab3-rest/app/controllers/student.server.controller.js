@@ -221,4 +221,20 @@ module.exports = {
             res.json(filteredStudents);
         });
     },
+
+    updateStudentCourses: (req, res, next) => {
+        const studentDocument = new Course(req.body); //get data from ejs page and attaches them to the model
+        const filter = {_id: req.params.id};
+        console.log("body: " + req.body);
+
+        Student.findOneAndUpdate(filter, studentDocument, {upsert: true}, (err) => {
+            if (err) {
+                // Call the next middleware with an error message
+                return next(err);
+            } else {
+                // Use the 'response' object to send a JSON response
+                res.json(studentDocument);
+            }
+        }); 
+    },
 }
