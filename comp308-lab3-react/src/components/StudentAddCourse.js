@@ -7,33 +7,85 @@ import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 
 class StudentAddCourse extends React.Component {
+    state = {
+        course: { _id: '', courseCode: '', courseName: '', section: '', semester: ''},
+        showLoading: false,
+    }
+
     constructor(props){
         super();
         this.iconStyle = {
             color: 'white',
             fontSize: '1.5rem',
         };
+        this.apiUrl = "http://localhost:3001/course";
+    }
+
+    saveCourse = (e) => {
+        this.setShowLoading(true);
+        e.preventDefault();
+        const data = this.state.course;
+
+        delete data._id;
+
+        axios.post(this.apiUrl, data).then((result) => {
+            this.setShowLoading(false);
+            this.props.history.push('/show/' + result.data._id)
+        }).catch((error) => this.setShowLoading(false));
+    };
+
+    onChange = (e) => {
+        e.persist();
+        const course = {...this.state.course, [e.target.name]: e.target.value}
+
+        this.setState(prevState => ({...prevState, course: course }));
+    }
+
+    setShowLoading = (value) => {
+        this.setState(prevState => ({...prevState, showLoading: value }));
     }
 
     render(){
         return( 
-            <div>
-                <form method="GET" action="/" className="mb-2">
-                    <button className="btn btn-primary">
-                        <i style={this.iconStyle} className="bi bi-arrow-left-square-fill"></i>
-                    </button>
-                </form>
-    
-                <Button onClick={() => this.props.updateScreen('test')}>
-    
+            <div className="absolute-centered">
+                <Button className="mb-4" variant="primary" onClick={() => this.props.updateScreen('')}>
+                    <i style={this.iconStyle} className="bi bi-arrow-left-square-fill"></i>
                 </Button>
-                
-                <Jumbotron>
-                    <Form >
-                        <Form.Group>
-                        </Form.Group>
-                    </Form>
-                </Jumbotron>
+                <div className="shadowed">
+                    <Jumbotron>
+                        <Form onSubmit={this.saveCourse}>
+                            <Form.Group>
+                                <Form.Label>Course Code</Form.Label>
+                                <Form.Control required type="text" name="courseCode" id="courseCode" value={this.state.course.courseCode} onChange={this.onChange} />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Label>Course Name</Form.Label>
+                                <Form.Control required type="text" name="courseName" id="courseName" value={this.state.course.courseName} onChange={this.onChange} />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Label>Section</Form.Label>
+                                <Form.Control required type="text" name="section" id="section" value={this.state.course.section} onChange={this.onChange} />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Label>Semester</Form.Label>
+                                <Form.Control required type="number" name="semester" id="semester" value={this.state.course.semester} onChange={this.onChange} />
+                            </Form.Group>
+
+                            {this.state.showLoading ? 
+                                <Button variant="primary" disabled>
+                                    <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                                    <span className="sr-only">Loading...</span>
+                                </Button> :
+                                <Button variant="primary" type="submit">
+                                    Save
+                                </Button>
+                            }
+                        </Form>
+                    </Jumbotron>
+                </div>
             </div>
         );
     }   

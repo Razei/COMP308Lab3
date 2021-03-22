@@ -19,6 +19,7 @@ class StudentHome extends React.Component {
     render(){
         switch(this.state.screen) {
             case 'add':
+                // pass updateScreen function to child
                 return <StudentAddCourse updateScreen={this.updateScreen}/>;
             case 'update':
                 return 'Test';
