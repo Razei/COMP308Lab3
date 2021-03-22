@@ -14,6 +14,7 @@ function LoginStudent(props) {
     const [password, setPassword] = useState();
     const apiUrl = "http://localhost:3001";
     const [error, setError] = useState({msg: '' });
+    const axiosConfig = {withCredentials: true,};
 
     //send username and password to the server
     // for initial authentication
@@ -30,7 +31,7 @@ function LoginStudent(props) {
             }
 
             //call api
-            const res = await axios.post(`${apiUrl}/signin`, loginData);
+            const res = await axios.post(`${apiUrl}/signin`, loginData, axiosConfig);
 
             if (res.data.role && res.data.role === "student"){
                 res.user = res.data;
@@ -47,9 +48,9 @@ function LoginStudent(props) {
     const readCookie = async () => {
         try {
             console.log('--- in readCookie function ---');
-            const res = await axios.get(`${apiUrl}/read_cookie`);
+            const res = await axios.get(`${apiUrl}/read_cookie`, axiosConfig);
 
-            if (res.data.role !== undefined) {
+            if (res.data.role && res.data.role === "student") {
                 props.history.push('/student/' + res.data._id);
             }
 

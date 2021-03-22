@@ -89,7 +89,7 @@ module.exports = {
             // if the token is invalid (if it has expired according to the expiry time we set on sign in),
             // or if the signature does not match
             payload = jwt.verify(token, jwtKey)
-            } catch (e) {
+        } catch (e) {
             if (e instanceof jwt.JsonWebTokenError) {
                 // the JWT is unauthorized, return a 401 error
                 return res.status(401).end()
@@ -99,7 +99,7 @@ module.exports = {
         }
     
         // Finally, token is ok, return the username given in the token
-        res.status(200).send({ screen: payload.username });
+        res.status(200).send({_id: payload.id, user: payload.username, role: "student" });
     },
 
     //isAuthenticated() method to check whether a user is currently authenticated
