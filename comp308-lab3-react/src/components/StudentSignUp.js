@@ -63,22 +63,22 @@ function StudentSignUp(props) {
                 <h1 className="mb-4">Sign Up as Student:</h1>
                 
                 <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
+                    <label htmlhtmlFor="firstName">First Name</label>
                     <input name="firstName" type="text" className="form-control" id="firstName" aria-describedby="nameHelp" placeholder="John" required value={user.firstName} onChange={onChange}/>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
+                    <label htmlhtmlFor="lastName">Last Name</label>
                     <input name="lastName" type="text" className="form-control" id="lastName" placeholder="Doe" required value={user.lastName} onChange={onChange}/>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="email">Email</label>
+                    <label htmlhtmlFor="email">Email</label>
                     <input name="email" type="email" className="form-control" id="email" placeholder="johndoe@example.com" required value={user.email} onChange={onChange}/>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="password">Password</label>
+                    <label htmlhtmlFor="password">Password</label>
                     <input name="password" pattern=".{6,}" title="6 characters minimum"  type="password" className="form-control" id="password" placeholder="*********" required value={user.password} onChange={onChange}/>
                 </div>
 

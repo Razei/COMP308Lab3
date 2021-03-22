@@ -1,5 +1,5 @@
 import Home from "./components/Home";
-import LoginStudent from "./components/LoginStudent";
+import LoginStudent from "./components/StudentLogin";
 import StudentSignUp from "./components/StudentSignUp";
 import StudentHome from "./components/StudentHome";
 import React from "react";
@@ -15,10 +15,10 @@ function App() {
   return (
       <Router>
           <Switch>
-              <Route exact path="/" ><Home/></Route>
+              <Route exact path="/" ><Home name={"Course Evaluation"}/></Route>
               <Route path="/student/login"><LoginStudent/></Route>
               <Route path="/student/signup"><StudentSignUp/></Route>
-              <Route path="/student/:studentId"><StudentHome/></Route>
+              <Route path="/student/:studentId"><Home name={"Student Home"}/></Route>
           </Switch>
       </Router>
   );

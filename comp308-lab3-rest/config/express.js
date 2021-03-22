@@ -7,6 +7,7 @@ const config = require('./config'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
+    session = require('express-session'),
     cors = require('cors'),
     path = require("path");
 
@@ -31,6 +32,12 @@ module.exports = function () {
 		next();
     });
     app.use(cors());
+
+    app.use(session({
+        saveUninitialized: true,
+        resave: true,
+        secret: config.sessionSecret
+    }));
 
     // Use the 'body-parser' and 'method-override' middleware functions
     app.use(bodyParser.urlencoded({

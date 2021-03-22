@@ -71,35 +71,35 @@ function LoginAdmin(props) {
     
     return (
         <div>
-            <div class="container p-0 absolute-centered">
-                <form method="GET" action="/" class="mb-2">
-                    <button class="btn btn-primary">
+            <div className="container p-0 absolute-centered">
+                <form method="GET" action="/" className="mb-2">
+                    <button className="btn btn-primary">
                         <i style={iconStyle} className="bi bi-arrow-left-square-fill"></i>
                     </button>
                 </form>
 
-                <div class="p-5 shadowed">
+                <div className="p-5 shadowed">
 
                     {error && error.msg && 
                         <Alert variant={'danger'}>{error.msg}. Try again or <Alert.Link href="/student/signup">sign up.</Alert.Link></Alert>
                     }
 
-                    <h1 class="mb-4">Login:</h1>
-                    <div class="form-group">
-                        <label for="email">Email address</label>
-                        <input name="email" onChange={e => setEmail(e.target.value)} type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>
+                    <h1 className="mb-4">Login:</h1>
+                    <div className="form-group">
+                        <label htmlFor="email">Email address</label>
+                        <input name="email" onChange={e => setEmail(e.target.value)} type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>
                     </div>
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input name="password" onChange={e => setPassword(e.target.value)} type="password" class="form-control" id="password" placeholder="Password"/>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input name="password" onChange={e => setPassword(e.target.value)} type="password" className="form-control" id="password" placeholder="Password"/>
                     </div>
 
-                    <button onClick={auth} type="submit" class="btn btn-primary">Submit</button>
+                    <button onClick={auth} type="submit" className="btn btn-primary">Submit</button>
                 </div>
 
-                <div class="row no-gutters">
-                    <div class="w-100 colour-block-2">
+                <div className="row no-gutters">
+                    <div className="w-100 colour-block-2">
                     </div>
                 </div>
             </div>

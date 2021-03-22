@@ -31,12 +31,8 @@ module.exports = {
                         // set the cookie as the token string, with a similar max age as the token
                         // here, the max age is in milliseconds
                         res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000,httpOnly: true});
-                        res.status(200).send({ screen: student.email });
-                        //
-                        //res.json({status:"success", message: "user found!!!", data:{user:
-                        //user, token:token}});
-        
-                        req.user=student;
+                        res.status(200).send({_id: student._id, user: student.email, role: "student" });
+
                         //call the next middleware
                         next()
                     } else {
@@ -59,9 +55,6 @@ module.exports = {
                 // Call the next middleware with an error message
                 return next(err);
             } else {
-                // Set the 'req.user' property
-                req.user = user;
-                console.log(user);
                 // Call the next middleware
                 next();
             }
@@ -86,22 +79,23 @@ module.exports = {
         console.log(token)
         // if the cookie is not set, return 'auth'
         if (!token) {
-        return res.send({ screen: 'auth' }).end();
+            return res.send({ screen: 'auth' }).end();
         }
+
         var payload;
         try {
-        // Parse the JWT string and store the result in `payload`.
-        // Note that we are passing the key in this method as well. This method will throw an error
-        // if the token is invalid (if it has expired according to the expiry time we set on sign in),
-        // or if the signature does not match
-        payload = jwt.verify(token, jwtKey)
-        } catch (e) {
-        if (e instanceof jwt.JsonWebTokenError) {
-            // the JWT is unauthorized, return a 401 error
-            return res.status(401).end()
-        }
-        // otherwise, return a bad request error
-        return res.status(400).end()
+            // Parse the JWT string and store the result in `payload`.
+            // Note that we are passing the key in this method as well. This method will throw an error
+            // if the token is invalid (if it has expired according to the expiry time we set on sign in),
+            // or if the signature does not match
+            payload = jwt.verify(token, jwtKey)
+            } catch (e) {
+            if (e instanceof jwt.JsonWebTokenError) {
+                // the JWT is unauthorized, return a 401 error
+                return res.status(401).end()
+            }
+            // otherwise, return a bad request error
+            return res.status(400).end()
         }
     
         // Finally, token is ok, return the username given in the token

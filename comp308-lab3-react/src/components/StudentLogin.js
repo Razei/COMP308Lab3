@@ -9,9 +9,6 @@ function LoginStudent(props) {
         fontSize: '1.5rem',
     };
 
-    //state variable for the screen, admin or user
-    const [screen, setScreen] = useState('auth');
-
     //store input field data, user name and password
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -35,7 +32,8 @@ function LoginStudent(props) {
             //call api
             const res = await axios.post(`${apiUrl}/signin`, loginData);
 
-            if (res.data.role){
+            if (res.data.role && res.data.role === "student"){
+                res.user = res.data;
                 props.history.push('/student/' + res.data._id);
             } else {
                 
@@ -52,12 +50,10 @@ function LoginStudent(props) {
             const res = await axios.get(`${apiUrl}/read_cookie`);
 
             if (res.data.role !== undefined) {
-                setScreen(res.data.role);
-                console.log(res.data.role)
+                props.history.push('/student/' + res.data._id);
             }
 
         } catch (e) {
-            setScreen('auth');
             console.log(e);
         }
     };
@@ -70,35 +66,35 @@ function LoginStudent(props) {
     
     return (
         <div>
-            <div class="container p-0 absolute-centered">
-                <form method="GET" action="/" class="mb-2">
-                    <button class="btn btn-primary">
+            <div className="container p-0 absolute-centered">
+                <form method="GET" action="/" className="mb-2">
+                    <button className="btn btn-primary">
                         <i style={iconStyle} className="bi bi-arrow-left-square-fill"></i>
                     </button>
                 </form>
 
-                <div class="p-5 shadowed">
+                <div className="p-5 shadowed">
 
                     {error && error.msg && 
                         <Alert variant={'danger'}>{error.msg}. Try again or <Alert.Link href="/student/signup">sign up.</Alert.Link></Alert>
                     }
 
-                    <h1 class="mb-4">Login:</h1>
-                    <div class="form-group">
-                        <label for="email">Email address</label>
-                        <input name="email" onChange={e => setEmail(e.target.value)} type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>
+                    <h1 className="mb-4">Login:</h1>
+                    <div className="form-group">
+                        <label htmlFor="email">Email address</label>
+                        <input name="email" onChange={e => setEmail(e.target.value)} type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>
                     </div>
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input name="password" onChange={e => setPassword(e.target.value)} type="password" class="form-control" id="password" placeholder="Password"/>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input name="password" onChange={e => setPassword(e.target.value)} type="password" className="form-control" id="password" placeholder="Password"/>
                     </div>
 
-                    <button onClick={auth} type="submit" class="btn btn-primary">Submit</button>
+                    <button onClick={auth} type="submit" className="btn btn-primary">Submit</button>
                 </div>
 
-                <div class="row no-gutters">
-                    <div class="w-100 colour-block-2">
+                <div className="row no-gutters">
+                    <div className="w-100 colour-block-2">
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import {Link, withRouter} from 'react-router-dom';
 import React from 'react';
 
-function Home() {
+function Home(props) {
     // constant index data for home page
     const indexData = [
         {
@@ -31,7 +31,7 @@ function Home() {
             <div className="absolute-centered shadowed">
                 <div className="row p-5 card-container">
                     <div className="col-12 mb-4">
-                        <h1>Course Evaluation</h1>
+                        <h1>{props.name}</h1>
                     </div>
 
                     {
