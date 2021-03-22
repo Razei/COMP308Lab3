@@ -7,6 +7,7 @@ import {
     Route,
     Switch,
 } from "react-router-dom";
+import StudentHome from "./components/StudentHome";
 
 
 // constant index data for home page
@@ -55,10 +56,10 @@ function App() {
   return (
       <Router>
           <Switch>
-              <Route exact path="/" ><Home title={"Course Evaluation"} data={indexData}/></Route>
+              <Route exact path="/" ><Home title={"Course Evaluation"} data={indexData} screen={'index'}/></Route>
               <Route path="/student/login"><LoginStudent/></Route>
               <Route path="/student/signup"><StudentSignUp/></Route>
-              <Route path="/student/:studentId"><Home title={"Student Home"} data={studentHomeData}/></Route>
+              <Route path="/student/:studentId"><StudentHome title={"Student Home"} data={studentHomeData}/></Route>
           </Switch>
       </Router>
   );

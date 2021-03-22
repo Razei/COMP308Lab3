@@ -6,13 +6,37 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 
-function StudentAddCourse(props) {
-    <Jumbotron>
-        <Form onSubmit={saveUser}>
-        <Form.Group>
-            </Form.Group>
-        </Form>
-    </Jumbotron>
+class StudentAddCourse extends React.Component {
+    constructor(props){
+        super();
+        this.iconStyle = {
+            color: 'white',
+            fontSize: '1.5rem',
+        };
+    }
+
+    render(){
+        return( 
+            <div>
+                <form method="GET" action="/" className="mb-2">
+                    <button className="btn btn-primary">
+                        <i style={this.iconStyle} className="bi bi-arrow-left-square-fill"></i>
+                    </button>
+                </form>
+    
+                <Button onClick={() => this.props.updateScreen('test')}>
+    
+                </Button>
+                
+                <Jumbotron>
+                    <Form >
+                        <Form.Group>
+                        </Form.Group>
+                    </Form>
+                </Jumbotron>
+            </div>
+        );
+    }   
 }
 
 export default withRouter(StudentAddCourse);
