@@ -32,9 +32,10 @@ class StudentHome extends React.Component {
         switch(this.state.screen) {
             case 'add':
                 // pass updateScreen function to child
-                return <StudentCourseManagement updateScreen={this.updateScreen}/>;
+                return <StudentCourseManagement updateScreen={this.updateScreen} key="manage"/>;
             case 'view':
-                return <StudentCourses />;
+                
+                return <StudentCourses key="list"/>;
             case 'signout':
                 axios.post('http://localhost:3001/signout').then(this.props.history.push('/'));
                   

@@ -245,6 +245,7 @@ module.exports = {
 
     read:(req, res)  =>{
         // Use the 'response' object to send a JSON response
-        res.json(req.student);
+        res.json(req.user);
+        console.log(req.user);
     }
 }

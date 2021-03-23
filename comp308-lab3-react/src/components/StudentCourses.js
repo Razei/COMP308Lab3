@@ -12,6 +12,7 @@ class StudentCourses extends React.Component {
         showLoading: false,
         formControlCount: 1,
     }
+
     constructor(){
         super();
         this.iconStyle = {
@@ -21,20 +22,17 @@ class StudentCourses extends React.Component {
         this.apiUrl = "http://localhost:3001";
         this.courses = [];
     }
+
+
+  
+    
    
     componentDidMount() {
-        /*
+        
         axios.get(`${this.apiUrl}/getStudent/${this.props.match.params.studentId}`).then((result)=>{
-            console.log(result.data);
-            this.setShowLoading(false);
-        });*/
-        this.setState();
-        axios.get(`${this.apiUrl}/courses`).then((result) => {
-            this.courses = result.data;
-            this.setShowLoading(false);
-            // this.props.history.push('/show/' + result.data._id)
-        }).catch((error) => this.setShowLoading(false));
-       
+         
+        });
+     
     }
 
     render() {
