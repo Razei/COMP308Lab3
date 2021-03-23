@@ -5,9 +5,8 @@ import { withRouter } from 'react-router-dom';
 
 class StudentCourseManagement extends React.Component {
     state = {
-        courses: [],
+        courses: [''],
         showLoading: false,
-        formControlCount: 1,
     }
 
     constructor(){
@@ -18,7 +17,6 @@ class StudentCourseManagement extends React.Component {
         };
         this.apiUrl = "http://localhost:3001";
         this.allCourses = [];
-        this.selectedCourses = [];
     }
 
 
@@ -30,7 +28,11 @@ class StudentCourseManagement extends React.Component {
         }).catch((error) => this.setShowLoading(false));
 
         axios.get(`${this.apiUrl}/getStudent/${this.props.match.params.studentId}`).then((result)=>{
-            this.selectedCourses = (result.data.courses);
+            const selectedCourses = (result.data.courses);
+
+            if (selectedCourses.length > 0){
+                this.setState(prevState => ({...prevState, courses: selectedCourses}));
+            }
         });
 
         axios.get(`${this.apiUrl}/courses`).then((result) => {
@@ -40,11 +42,18 @@ class StudentCourseManagement extends React.Component {
         }).catch((error) => this.setShowLoading(false));
     }
 
+    setCourseState = (courses) => {
+        this.setState(prevState => ({...prevState, courses: courses}));
+    }
+
+    setShowLoading = (value) => {
+        this.setState(prevState => ({...prevState, showLoading: value }));
+    }
 
     saveCourse = (e) => {
         this.setShowLoading(true);
         e.preventDefault();
-        const data = this.state.courses.map(course => Object.values(course)[0]);
+        const data = this.state.courses;
 
         axios.post(`${this.apiUrl}/student/${this.props.match.params.studentId}/courses`, data).then((result) => {
             this.setShowLoading(false);
@@ -52,42 +61,24 @@ class StudentCourseManagement extends React.Component {
         }).catch((error) => this.setShowLoading(false));
     };
 
-    onChange = (e, id) => {
-        e.persist();
-        const course = {...this.state.course, id: id, [e.target.name]: e.target.value}
-        this.setState(prevState => ({...prevState, course: course }));
-    }
-
-    onSelectChange = (e) => {
+    onSelectChange = (e, index) => {
         e.persist();
 
         let courses = JSON.parse(JSON.stringify(this.state.courses));
-        const keys = courses.map(course => Object.keys(course)[0]);
-        const index = keys.findIndex(key => key === e.target.name);
-
-        if (index != -1){
-            courses[index] = {[keys[index]]: e.target.value};
-        } else {
-            courses.push({[`${e.target.name}`]: e.target.value});
-        }
-
-        this.setState(prevState => ({...prevState, courses: courses }));
+        courses[index] = e.target.value;
+        this.setCourseState(courses);
     }
 
-    changeCourseCount = (value, name) => {
-        this.setState(prevState => ({...prevState, formControlCount: this.state.formControlCount + value}));
-
-        if (name){
-            let courses = JSON.parse(JSON.stringify(this.state.courses));
-            const keys = courses.map(course => Object.keys(course)[0]);
-            const index = keys.findIndex(key => key === name);
-            courses.splice(index, 1);
-            this.setState(prevState => ({...prevState, courses: courses }));
-        }
+    addCourse = (e) => {
+        let courses = JSON.parse(JSON.stringify(this.state.courses));
+        courses.push(e.target.value);
+        this.setCourseState(courses);
     }
 
-    setShowLoading = (value) => {
-        this.setState(prevState => ({...prevState, showLoading: value }));
+    deleteCourse = (index) => {
+        let courses = JSON.parse(JSON.stringify(this.state.courses));
+        courses.splice(index, 1);
+        this.setCourseState(courses);
     }
 
     render(){
@@ -102,39 +93,22 @@ class StudentCourseManagement extends React.Component {
 
                         <Form onSubmit={this.saveCourse}>
                             {
-                                Array.from(Array(this.state.formControlCount).keys()).map((_, index) => {
-                                    const name = `course-${index}`;
+                                this.state.courses.map((course, index) => {
+                                    // const name = `course-${index}`;
                                     return (
                                         <InputGroup key={index} className="mb-2">
-                                            {/* {
-                                                this.selectedCourses.length > 0 ? 
-                                                this.selectedCourses.map(c => {
-                                                    return (
-                                                        <Form.Control value={c} defaultValue={''} required name={name} onChange={this.onSelectChange} as="select" custom>
-                                                            <option value="" disabled hidden>Choose a course</option>
-                                                            {
-                                                                this.allCourses.map((course, index) => {
-                                                                    return <option key={index} value={course._id}>{course.courseName}</option>
-                                                                })
-                                                            }
-                                                        </Form.Control>
-                                                    )
-                                                }) : 
-                                                
-                                            } */}
-
-                                                <Form.Control defaultValue={''} required name={name} onChange={this.onSelectChange} as="select" custom>
-                                                    <option value="" disabled hidden>Choose a course</option>
-                                                    {
-                                                        this.allCourses.map((course, index) => {
-                                                            return <option key={index} value={course._id}>{course.courseName}</option>
-                                                        })
-                                                    }
-                                                </Form.Control>
+                                            <Form.Control value={course} defaultValue={''} required onChange={(e) => this.onSelectChange(e, index)} as="select" custom>
+                                                <option value="" disabled hidden>Choose a course</option>
+                                                {
+                                                    this.allCourses.map((course, index) => {
+                                                        return <option key={index} value={course._id}>{course.courseName}</option>
+                                                    })
+                                                }
+                                            </Form.Control>
                                             
 
                                             <InputGroup.Append>
-                                                <Button variant="outline-danger" onClick={() => this.changeCourseCount(-1, name)}>
+                                                <Button variant="outline-danger" onClick={() => this.deleteCourse(index)}>
                                                     <i style={{fontSize: '1rem', color:'unset'}} className="bi bi-trash-fill"></i>
                                                 </Button>
                                             </InputGroup.Append>
@@ -144,7 +118,7 @@ class StudentCourseManagement extends React.Component {
                             }
 
                             <Form.Group>
-                                <Button variant="success" onClick={() => this.changeCourseCount(1)}>
+                                <Button variant="success" onClick={(e) => this.addCourse(e)}>
                                     <i style={this.iconStyle} className="bi bi-journal-plus"></i>
                                 </Button>
                             </Form.Group>
