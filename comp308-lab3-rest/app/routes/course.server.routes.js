@@ -12,6 +12,8 @@ module.exports = function (app) {
     app.route("/courses").get(courseController.getAllCourses);
     app.post("/course", courseController.createCourse);
     app.route("/course/:id")
+    .get(courseController.read)
     .put(courseController.updateCourse)
     .delete(courseController.dropCourse);
+    app.param('id', courseController.getCourse);
 }

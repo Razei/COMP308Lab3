@@ -54,4 +54,28 @@ module.exports = {
             }
         })
     },
+
+    getCourse:(req,res,next,id) =>{
+        Course.findOne({
+            _id: id
+        }, (err, course) => {
+            if (err) {
+                // Call the next middleware with an error message
+                return next(err);
+            } else {
+                // Set the 'req.course' property
+                req.course = course;
+                console.log(course);
+                // Call the next middleware
+                next();
+            }
+        });
+    },
+
+
+    read:(req, res)  =>{
+        // Use the 'response' object to send a JSON response
+        res.json(req.course);
+        console.log(req.course);
+    }
 }
