@@ -9,6 +9,7 @@ class StudentCourses extends React.Component {
         courses: [],
         showLoading: false,
         formControlCount: 1,
+        courseObjects:[]
     }
 
     constructor(){
@@ -19,6 +20,7 @@ class StudentCourses extends React.Component {
         };
         this.apiUrl = "http://localhost:3001";
         this.courses = [];
+        this.courseObjects = [];
     }
 
 
@@ -28,10 +30,29 @@ class StudentCourses extends React.Component {
     componentDidMount() {
         
         axios.get(`${this.apiUrl}/getStudent/${this.props.match.params.studentId}`).then((result)=>{
+            
             console.log(result.data.courses);
             this.courses =(result.data.courses);
-            this.forceUpdate();
+           
             console.log(this.courses);
+
+            this.courses.forEach(course =>{
+                console.log(course);
+                axios.get(`${this.apiUrl}/course/${course}`).then((result=>{
+                    this.courseObjects.push(result.data);
+                    console.log(this.courseObjects.length);
+                    this.forceUpdate();
+                }));
+               
+               
+            }) ;
+            console.log(this.courseObjects.length);
+            
+            
+           
+                
+                
+            
         });
      
     }
@@ -48,9 +69,16 @@ class StudentCourses extends React.Component {
         <th scope="col">Section</th>
         <th scope="col">Semester</th>
       </tr>
-      <tr>
-          <td>{this.props.match.params.studentId},{this.courses.length}</td>
-          </tr>
+        
+     {this.courseObjects.map((course,index)=>{
+         return <tr>
+             <td>{index}</td>
+             <td key={index}>{course.courseName}</td>
+             <td>{course.courseCode}</td>
+             <td>{course.section}</td>
+             <td>{course.semester}</td>
+         </tr>
+     })}
     </thead>
     <tbody>
      
