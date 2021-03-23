@@ -1,0 +1,76 @@
+import {Link, withRouter} from 'react-router-dom';
+import React, {useState} from 'react';
+import Button from 'react-bootstrap/Button';
+import StudentCourseManagement from './StudentCourseManagement';
+import StudentCourses from './StudentCourses';
+import axios from 'axios';
+
+class AdminHome extends React.Component {
+    state = {screen: ''};
+    constructor(props){
+        super();
+        this.state = props.screen || '';
+        this.title = props.title;
+        this.indexData = props.data;
+        
+    }
+
+    updateScreen = (text) => {
+        this.setState({screen: text});
+    };
+
+    render(){
+        switch(this.state.screen) {
+            case 'add':
+                // pass updateScreen function to child
+                return <StudentCourseManagement updateScreen={this.updateScreen} key="manage"/>;
+            case 'view':
+                
+                return <StudentCourses key="list"/>;
+            case 'signout':
+                axios.post('http://localhost:3001/signout').then(this.props.history.push('/'));
+                
+            default: 
+                console.log(this.state);
+                return(
+                    <div>
+                        <div className="bg-image-container">
+                            <div className="bg-image"/>
+                        </div>
+            
+                        <div className="absolute-centered shadowed">
+                            <div className="row p-5 card-container">
+                                <div className="col-12 mb-4">
+                                    <h1>{this.title}</h1>
+                                </div>
+            
+                                {
+                                    this.indexData?.map((item, index) => {
+                                        let style = "";
+                                        if (index !== this.indexData.length - 1) {
+                                            style = "mb-4"
+                                        }
+            
+                                        return (
+                                            <a key={index} onClick={() => this.setState({screen: item.screen})} className={`col-12 custom-card shadowed ${style}`}>
+                                                <div className="p-4">
+                                                    <i className={item.icon}/>
+                                                    <span className="ml-4">{item.linkText}</span>
+                                                </div>
+                                            </a>
+                                        );
+                                    })
+                                }
+                            </div>
+            
+                            <div className="row no-gutters">
+                                <div className="w-100 colour-block-2"/>
+                            </div>
+                        </div>
+                    </div>
+                );
+        };
+    }
+}
+
+export default withRouter(AdminHome);

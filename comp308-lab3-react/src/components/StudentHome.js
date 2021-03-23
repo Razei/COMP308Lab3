@@ -1,14 +1,10 @@
-import {Link, withRouter} from 'react-router-dom';
-import React, {useState} from 'react';
-import Button from 'react-bootstrap/Button';
+import {withRouter} from 'react-router-dom';
+import React from 'react';
 import StudentCourseManagement from './StudentCourseManagement';
 import StudentCourses from './StudentCourses';
+import StudentList from "./StudentList";
 import axios from 'axios';
-           
-
-
-
-
+import { Button } from 'react-bootstrap';
 
 class StudentHome extends React.Component {
     state = {screen: ''};
@@ -24,22 +20,22 @@ class StudentHome extends React.Component {
         this.setState({screen: text});
     };
 
- 
-    
-   
+    changePage = (link) =>{
+        this.props.history.push(link);
+    }
 
-    render(){
+    RenderPages = () => {
         switch(this.state.screen) {
             case 'add':
                 // pass updateScreen function to child
                 return <StudentCourseManagement updateScreen={this.updateScreen} key="manage"/>;
             case 'view':
-                
-                return <StudentCourses key="list"/>;
+                return <StudentCourses updateScreen={this.updateScreen} key="list"/>;
             case 'signout':
                 axios.post('http://localhost:3001/signout').then(this.props.history.push('/'));
-                  
-                
+                break;
+            case 'list':
+                return <StudentList updateScreen={this.updateScreen}/>;
             default: 
                 console.log(this.state);
                 return(
@@ -62,12 +58,12 @@ class StudentHome extends React.Component {
                                         }
             
                                         return (
-                                            <a key={index} onClick={() => this.setState({screen: item.screen})} className={`col-12 custom-card shadowed ${style}`}>
+                                            <Button variant="light" key={index} onClick={() => this.setState({screen: item.screen})} className={`col-12 text-left custom-card shadowed ${style}`}>
                                                 <div className="p-4">
                                                     <i className={item.icon}/>
                                                     <span className="ml-4">{item.linkText}</span>
                                                 </div>
-                                            </a>
+                                            </Button>
                                         );
                                     })
                                 }
@@ -80,6 +76,10 @@ class StudentHome extends React.Component {
                     </div>
                 );
         };
+    } 
+
+    render(){
+        return <this.RenderPages/>;
     }
 }
 

@@ -1,11 +1,8 @@
 import {Link, withRouter} from 'react-router-dom';
-import React, {useState} from 'react';
-import Button from 'react-bootstrap/Button';
-import StudentCourseManagement from './StudentCourseManagement';
+import React from 'react';
 
 function Home(props) {
     // constant index data for home page
-    const [screen, setScreen] = useState(props.screen);
     const title = props.title;
     const indexData = props.data;
     

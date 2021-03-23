@@ -30,6 +30,32 @@
     background-color: var(--colour-5);
 }
 
+.gradient-1 {
+    background: var(--gradient-1);
+}
+
+.gradient-2 {
+    background: var(--gradient-2);
+}
+
+.gradient-3 {
+    background: var(--gradient-3);
+}
+
+.shadowed {
+    background-color: #ffffff;
+    box-shadow: 0 0 32px 0 rgba(0,0,0,0.15);
+}
+
+.rounded-custom{
+    border-radius: .5rem;
+}
+
+.flexible-column{
+    display: flex;
+    flex-direction: column;
+}
+
 .btn-primary{
     background-color:var(--colour-2);
     border-color: var(--colour-2);
@@ -91,11 +117,6 @@ a{
     transform: translate(-50%, -50%);
 }
 
-.shadowed {
-    background-color: #efefef;
-    box-shadow: 0 0 32px 0 rgba(0,0,0,0.15);
-}
-
 .flexible-column{
     display: flex;
     flex-direction: column;
@@ -123,7 +144,8 @@ a{
     text-decoration: none;
 }
 
-.custom-card:hover span{
+.custom-card:hover span,
+.custom-card:hover i{
     color: white;
 }
 

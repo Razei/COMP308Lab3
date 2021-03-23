@@ -227,13 +227,10 @@ module.exports = {
 
     updateStudentCourses: (req, res, next) => {
         // using the req.user that was set in the userById() param function
-        let student = req.user;
+        let studentId = req.user._id;
         let courses = req.body;
-        console.log(req.user._id);
-        student.courses = req.body;
-        delete student._id;
         
-        Student.updateOne({_id: student.id}, {"$set": {"courses": courses}}, (err, courses) => {
+        Student.updateOne({_id: studentId}, {"$set": {"courses": courses}}, (err, courses) => {
             if (err) {
                 // Call the next middleware with an error message
                 return next(err);

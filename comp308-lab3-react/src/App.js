@@ -23,12 +23,6 @@ const indexData = [{
         linkText: "Sign Up as Student",
         screen: "signup"
     },
-    {
-        icon: "bi bi-shield-lock",
-        link: "/admin/login",
-        linkText: "Admin Portal",
-        screen: "admin"
-    },
 ];
 
 // constant index data for home page
@@ -39,6 +33,7 @@ const studentHomeData = [
         linkText: "Course Management",
         screen: "add"
     },
+
     {
         icon: "bi bi-journals",
         link: "#",
@@ -47,11 +42,20 @@ const studentHomeData = [
     },
 
     {
+        icon: "bi bi-people-fill",
+        link: "/student/list",
+        linkText: "List All Students",
+        screen: "list"
+    },
+
+    {
         icon: "bi bi-door-open",
         link: "#",
         linkText: "Log Out",
         screen: "signout"
     },
+    
+
 ];
 
 function App() {

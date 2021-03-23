@@ -1,7 +1,5 @@
 
 import React from 'react';
-
-import {Spinner, Jumbotron, Form, Button, InputGroup} from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 

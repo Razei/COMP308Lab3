@@ -8,15 +8,23 @@ tr.clickable{
     vertical-align: middle;
     border-top: 1px solid #dee2e6;
 }
+
+.tableTitle, .tableTitle > span{
+    color: white;
+}
+
+.tableTitle{
+    font-weight: bold;
+    padding: .7rem 1rem;
+}
+
 td {
     max-width: 500px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-thead{
-    background-color: var(--colour-2);
-}
+
 
 tbody{
     background-color: white;
