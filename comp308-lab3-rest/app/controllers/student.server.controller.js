@@ -232,24 +232,8 @@ module.exports = {
         console.log(req.user._id);
         student.courses = req.body;
         delete student._id;
- 
-        Student.findOne({_id:student.id},(err,studentVal)=>{
-            if(err){
-                console.log(err);
-                return next(err);
-            }
-            else{
-                console.log(studentVal);
-                studentVal.courses = courses;
-                studentVal.save();
-                console.log(studentVal);
-                res.json(studentVal);
-            }
-         
-        })
-       
-      /*
-        Student.findByIdAndUpdate(req.user._id, {"$set": {"courses": courses}}, (err, courses) => {
+        
+        Student.updateOne({_id: student.id}, {"$set": {"courses": courses}}, (err, courses) => {
             if (err) {
                 // Call the next middleware with an error message
                 return next(err);
@@ -257,7 +241,7 @@ module.exports = {
                 // Use the 'response' object to send a JSON response
                 res.json(courses);
             }
-        }); */
+        }); 
     },
 
     read:(req, res)  =>{

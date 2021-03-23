@@ -17,13 +17,24 @@ class StudentCourseManagement extends React.Component {
             fontSize: '1.5rem',
         };
         this.apiUrl = "http://localhost:3001";
-        this.courses = [];
+        this.allCourses = [];
+        this.selectedCourses = [];
     }
 
 
     componentDidMount() {
+        axios.post(`${this.apiUrl}/studentCourses/${this.props.match.params.studentId}`).then((result) => {
+            this.selectedCourses = result.data;
+            this.setShowLoading(false);
+            // this.props.history.push('/show/' + result.data._id)
+        }).catch((error) => this.setShowLoading(false));
+
+        axios.get(`${this.apiUrl}/getStudent/${this.props.match.params.studentId}`).then((result)=>{
+            this.selectedCourses = (result.data.courses);
+        });
+
         axios.get(`${this.apiUrl}/courses`).then((result) => {
-            this.courses = result.data;
+            this.allCourses = result.data;
             this.setShowLoading(false);
             // this.props.history.push('/show/' + result.data._id)
         }).catch((error) => this.setShowLoading(false));
@@ -95,14 +106,32 @@ class StudentCourseManagement extends React.Component {
                                     const name = `course-${index}`;
                                     return (
                                         <InputGroup key={index} className="mb-2">
-                                            <Form.Control defaultValue={''} required name={name} onChange={this.onSelectChange} as="select" custom>
-                                                <option value="" disabled hidden>Choose a course</option>
-                                                {
-                                                    this.courses.map((course, index) => {
-                                                        return <option key={index} value={course._id}>{course.courseName}</option>
-                                                    })
-                                                }
-                                            </Form.Control>
+                                            {/* {
+                                                this.selectedCourses.length > 0 ? 
+                                                this.selectedCourses.map(c => {
+                                                    return (
+                                                        <Form.Control value={c} defaultValue={''} required name={name} onChange={this.onSelectChange} as="select" custom>
+                                                            <option value="" disabled hidden>Choose a course</option>
+                                                            {
+                                                                this.allCourses.map((course, index) => {
+                                                                    return <option key={index} value={course._id}>{course.courseName}</option>
+                                                                })
+                                                            }
+                                                        </Form.Control>
+                                                    )
+                                                }) : 
+                                                
+                                            } */}
+
+                                                <Form.Control defaultValue={''} required name={name} onChange={this.onSelectChange} as="select" custom>
+                                                    <option value="" disabled hidden>Choose a course</option>
+                                                    {
+                                                        this.allCourses.map((course, index) => {
+                                                            return <option key={index} value={course._id}>{course.courseName}</option>
+                                                        })
+                                                    }
+                                                </Form.Control>
+                                            
 
                                             <InputGroup.Append>
                                                 <Button variant="outline-danger" onClick={() => this.changeCourseCount(-1, name)}>

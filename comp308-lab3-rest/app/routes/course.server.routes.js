@@ -9,9 +9,8 @@ module.exports = function (app) {
     // app.param('userId', studentController.userByID);
     // app.post('/signin', studentController.authenticate);
     
-    app.get("/courses", courseController.getAllCourses)
+    app.route("/courses").get(courseController.getAllCourses);
     app.post("/course", courseController.createCourse);
-
     app.route("/course/:id")
     .put(courseController.updateCourse)
     .delete(courseController.dropCourse);
