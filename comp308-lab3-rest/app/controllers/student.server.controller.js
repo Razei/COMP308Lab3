@@ -229,10 +229,27 @@ module.exports = {
         // using the req.user that was set in the userById() param function
         let student = req.user;
         let courses = req.body;
+        console.log(req.user._id);
         student.courses = req.body;
         delete student._id;
-
-        Student.updateOne(req.user._id, {"$set": {"courses": courses}}, (err, courses) => {
+ 
+        Student.findOne({_id:student.id},(err,studentVal)=>{
+            if(err){
+                console.log(err);
+                return next(err);
+            }
+            else{
+                console.log(studentVal);
+                studentVal.courses = courses;
+                studentVal.save();
+                console.log(studentVal);
+                res.json(studentVal);
+            }
+         
+        })
+       
+      /*
+        Student.findByIdAndUpdate(req.user._id, {"$set": {"courses": courses}}, (err, courses) => {
             if (err) {
                 // Call the next middleware with an error message
                 return next(err);
@@ -240,7 +257,7 @@ module.exports = {
                 // Use the 'response' object to send a JSON response
                 res.json(courses);
             }
-        }); 
+        }); */
     },
 
     read:(req, res)  =>{

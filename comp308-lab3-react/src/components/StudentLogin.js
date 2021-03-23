@@ -62,9 +62,11 @@ function LoginStudent(props) {
     };
     //runs the first time the view is rendered
     //to check if user is signed in
+    
     useEffect(() => {
         readCookie();
     }, []); //only the first render
+    
     //
     
     return (

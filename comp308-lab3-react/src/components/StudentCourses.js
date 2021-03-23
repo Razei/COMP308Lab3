@@ -30,7 +30,10 @@ class StudentCourses extends React.Component {
     componentDidMount() {
         
         axios.get(`${this.apiUrl}/getStudent/${this.props.match.params.studentId}`).then((result)=>{
-         
+            console.log(result.data.courses);
+            this.courses =(result.data.courses);
+            this.forceUpdate();
+            console.log(this.courses);
         });
      
     }
@@ -48,7 +51,7 @@ class StudentCourses extends React.Component {
         <th scope="col">Semester</th>
       </tr>
       <tr>
-          <td>{this.props.match.params.studentId}</td>
+          <td>{this.props.match.params.studentId},{this.courses.length}</td>
           </tr>
     </thead>
     <tbody>
