@@ -66,6 +66,7 @@ module.exports = {
     //sign out function in controller
     //deletes the token on the client side by clearing the cookie named 'token'
     signout: (req, res) => {
+       
         res.clearCookie("token")
         return res.status('200').json({message: "signed out"})
         // Redirect the user back to the main application page
@@ -179,6 +180,7 @@ module.exports = {
         });
     },
 
+
     updateStudent: (req, res, next) => {
         const studentDocument = new Student(req.body); //get data from ejs page and attaches them to the model
         const filter = {_id: req.params.id};
@@ -240,4 +242,9 @@ module.exports = {
             }
         }); 
     },
+
+    read:(req, res)  =>{
+        // Use the 'response' object to send a JSON response
+        res.json(req.student);
+    }
 }

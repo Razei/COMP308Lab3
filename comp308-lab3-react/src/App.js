@@ -45,6 +45,13 @@ const studentHomeData = [
         linkText: "View Courses",
         screen: "view"
     },
+
+    {
+        icon: "bi bi-door-open",
+        link: "#",
+        linkText: "Log Out",
+        screen: "signout"
+    },
 ];
 
 function App() {

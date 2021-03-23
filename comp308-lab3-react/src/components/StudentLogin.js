@@ -16,6 +16,8 @@ function LoginStudent(props) {
     const [error, setError] = useState({msg: '' });
     const axiosConfig = {withCredentials: true,};
 
+    
+
     //send username and password to the server
     // for initial authentication
     const auth = async () => {

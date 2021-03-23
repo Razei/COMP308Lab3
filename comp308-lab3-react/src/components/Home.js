@@ -8,6 +8,7 @@ function Home(props) {
     const [screen, setScreen] = useState(props.screen);
     const title = props.title;
     const indexData = props.data;
+    
 
     return(
         <div>

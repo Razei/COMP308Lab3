@@ -3,6 +3,12 @@ import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import StudentCourseManagement from './StudentCourseManagement';
 import StudentCourses from './StudentCourses';
+import axios from 'axios';
+           
+
+
+
+
 
 class StudentHome extends React.Component {
     state = {screen: ''};
@@ -11,11 +17,16 @@ class StudentHome extends React.Component {
         this.state = props.screen || '';
         this.title = props.title;
         this.indexData = props.data;
+        
     }
 
     updateScreen = (text) => {
         this.setState({screen: text});
     };
+
+ 
+    
+   
 
     render(){
         switch(this.state.screen) {
@@ -23,9 +34,11 @@ class StudentHome extends React.Component {
                 // pass updateScreen function to child
                 return <StudentCourseManagement updateScreen={this.updateScreen}/>;
             case 'view':
-                return <StudentCourses/>;
-            case 'drop':
-                return 'Test';
+                return <StudentCourses />;
+            case 'signout':
+                axios.post('http://localhost:3001/signout').then(this.props.history.push('/'));
+                  
+                
             default: 
                 console.log(this.state);
                 return(
