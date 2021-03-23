@@ -41,19 +41,25 @@ class StudentCourseManagement extends React.Component {
         }).catch((error) => this.setShowLoading(false));
     };
 
-    onChange = (e) => {
+    onChange = (e, id) => {
         e.persist();
-        const course = {...this.state.course, [e.target.name]: e.target.value}
-
+        const course = {...this.state.course, id: id, [e.target.name]: e.target.value}
         this.setState(prevState => ({...prevState, course: course }));
     }
 
     onSelectChange = (e) => {
         e.persist();
 
-        const courses = this.state.courses;
-        const index = courses.findIndex(course => course.name === e.target.name);
-        courses.splice(index, 0, {[e.target.name]: e.target.value});
+        let courses = JSON.parse(JSON.stringify(this.state.courses));
+        const keys = courses.map(course => Object.keys(course)[0]);
+        const index = keys.findIndex(key => key === e.target.name);
+
+        if (index != -1){
+            courses[index] = {[keys[index]]: e.target.value};
+        } else {
+            courses.push({[`${e.target.name}`]: e.target.value});
+        }
+
         this.setState(prevState => ({...prevState, courses: courses }));
     }
 
@@ -61,8 +67,9 @@ class StudentCourseManagement extends React.Component {
         this.setState(prevState => ({...prevState, formControlCount: this.state.formControlCount + value}));
 
         if (name){
-            const courses = this.state.courses;
-            const index = courses.findIndex(course => course.name === name);
+            let courses = JSON.parse(JSON.stringify(this.state.courses));
+            const keys = courses.map(course => Object.keys(course)[0]);
+            const index = keys.findIndex(key => key === name);
             courses.splice(index, 1);
             this.setState(prevState => ({...prevState, courses: courses }));
         }
