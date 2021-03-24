@@ -85,19 +85,28 @@ class StudentCourseManagement extends React.Component {
         e.target.value = e.target.value.padStart(3, '0');
         sections[index] = e.target.value;
         this.setStateByKey(sections, 'sectionNumbers');
-
     }
 
     addCourse = (e) => {
         let courses = JSON.parse(JSON.stringify(this.state.courses));
-        courses.push(e.target.value);
+        let sections = JSON.parse(JSON.stringify(this.state.sectionNumbers));
+
+        courses.push('');
+        sections.push('000');
+
         this.setStateByKey(courses, 'courses');
+        this.setStateByKey(sections, 'sectionNumbers');        
     }
 
     deleteCourse = (index) => {
         let courses = JSON.parse(JSON.stringify(this.state.courses));
+        let sections = JSON.parse(JSON.stringify(this.state.sectionNumbers));
+
         courses.splice(index, 1);
+        sections.splice(index, 1);
+
         this.setStateByKey(courses, 'courses');
+        this.setStateByKey(sections, 'sectionNumbers');
     }
 
     render(){
