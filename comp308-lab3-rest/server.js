@@ -21,10 +21,12 @@ const Student = require('mongoose').model('Student');
 Course.count((err, count) => {
     if (count == 0) {
         let courseDocuments = [];
-    
-        Array(5).fill().forEach((_,i) => {
-            courseDocuments.push(new Course({'courseCode': `A${i}`, 'courseName': 'b', 'section': '006', 'semester': '2'}));
-        });
+
+        courseDocuments.push(new Course({'courseCode': `COMP311`, 'courseName': 'Software Testing and Quality Assurance', 'section': '003', 'semester': '3'}));
+        courseDocuments.push(new Course({'courseCode': `COMP303`, 'courseName': 'Java EE Programming', 'section': '002', 'semester': '4'}));
+        courseDocuments.push(new Course({'courseCode': `GNED100`, 'courseName': 'General Course', 'section': '001', 'semester': '5'}));
+        courseDocuments.push(new Course({'courseCode': `COMP308`, 'courseName': 'Emerging Technologies', 'section': '006', 'semester': '5'}));
+        courseDocuments.push(new Course({'courseCode': `COMP123`, 'courseName': 'Programming 2', 'section': '006', 'semester': '2'}));
     
         Course.create(courseDocuments, (err) => {
             if (err) {
@@ -33,9 +35,9 @@ Course.count((err, count) => {
         });
 
         const student1 = new Student({
-            'firstName': 'A', 
-            'lastName': 'B', 
-            'email': 'example@gmail.com', 
+            'firstName': 'Bob', 
+            'lastName': 'Barker', 
+            'email': 'bbarker@gmail.com', 
             'password': 'password', 
             'courses': [
                 courseDocuments[0],
@@ -45,9 +47,9 @@ Course.count((err, count) => {
         });
 
         const student2 = new Student({
-            'firstName': 'Z', 
-            'lastName': 'X', 
-            'email': 'example2@gmail.com', 
+            'firstName': 'John', 
+            'lastName': 'Henry', 
+            'email': 'jhenry@gmail.com', 
             'password': 'password', 
             'courses': [
                 courseDocuments[3],
