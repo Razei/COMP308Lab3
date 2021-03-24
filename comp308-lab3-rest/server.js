@@ -62,7 +62,6 @@ Course.count((err, count) => {
                 console.log(err);
             }
         });
-
     }
 });
 
