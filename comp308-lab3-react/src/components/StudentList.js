@@ -15,7 +15,7 @@ class StudentList extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         axios.get(`${this.apiUrl}/studentsCourses`).then((result) => {
             this.setState({students: result.data});
         }).catch((error) => console.log(error));

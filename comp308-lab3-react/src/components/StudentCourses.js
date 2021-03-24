@@ -24,7 +24,7 @@ class StudentCourses extends React.Component {
         this.courseObjects = [];
     }
 
-    componentDidMount() {
+    componentWillMount() {
         axios.get(`${this.apiUrl}/getStudent/${this.props.match.params.studentId}`).then((result)=>{
             console.log(result.data.courses);
             this.courses =(result.data.courses);

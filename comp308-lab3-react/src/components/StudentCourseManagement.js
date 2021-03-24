@@ -21,7 +21,7 @@ class StudentCourseManagement extends React.Component {
     }
 
 
-    componentDidMount() {
+    componentWillMount() {
         axios.get(`${this.apiUrl}/getStudent/${this.props.match.params.studentId}`).then((result)=>{
             const selectedCourses = (result.data.courses);
             

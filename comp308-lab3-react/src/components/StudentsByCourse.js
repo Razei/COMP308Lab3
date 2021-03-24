@@ -20,7 +20,7 @@ class StudentsByCourse extends React.Component {
     }
 
 
-    componentDidMount() {
+    componentWillMount() {
         axios.get(`${this.apiUrl}/courses`).then((result) => {
             this.allCourses = result.data;
             this.forceUpdate();
