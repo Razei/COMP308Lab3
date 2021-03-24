@@ -42,6 +42,7 @@ class StudentCourseManagement extends React.Component {
 
         axios.get(`${this.apiUrl}/courses`).then((result) => {
             this.allCourses = result.data;
+            this.forceUpdate();
         }).catch((error) => console.log(error));
     }
 
@@ -59,7 +60,7 @@ class StudentCourseManagement extends React.Component {
                 return variable;
             }
         });
-        
+
         axios.post(`${this.apiUrl}/student/${this.props.match.params.studentId}/courses`, data).then(() => {
             this.setStateByKey(false, 'showLoading');
         }).catch((error) => this.setStateByKey(false, 'showLoading'));
@@ -133,9 +134,7 @@ class StudentCourseManagement extends React.Component {
                                                     })
                                                 }
                                             </Form.Control>
-                                            
-                                            <Form.Control min="0" defaultValue={this.state.sectionNumbers[index]} required onChange={(e) => this.onSectionNumberChange(e, index)} type="number"/>
-
+                                        
                                             <InputGroup.Append>
                                                 <Button variant="outline-danger" onClick={() => this.deleteCourse(index)}>
                                                     <i style={{fontSize: '1rem', color:'unset'}} className="bi bi-trash-fill"></i>

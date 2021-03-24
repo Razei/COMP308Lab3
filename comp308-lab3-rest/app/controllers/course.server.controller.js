@@ -12,6 +12,25 @@ module.exports = {
             }
         });
     },
+
+    createCourses: (req, res, next) => {
+        const createdCourses = [''];
+
+        if (req.body && req.body.length != 0){
+            createdCourses = req.body.map(course => {
+                let courseDocument = new Course(course);
+                courseDocument.save((err, course) => {
+                    if (err) {
+                        return next(err);
+                    } else {
+                        return course;
+                    }
+                });
+            });
+        }
+
+        res.json(createdCourses);
+    },
     
     updateCourse: (req, res, next) => {
         const courseDocument = new Course(req.body);

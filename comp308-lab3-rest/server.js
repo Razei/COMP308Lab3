@@ -22,11 +22,16 @@ Course.count((err, count) => {
     if (count == 0) {
         let courseDocuments = [];
 
-        courseDocuments.push(new Course({'courseCode': `COMP311`, 'courseName': 'Software Testing and Quality Assurance', 'section': '003', 'semester': '3'}));
-        courseDocuments.push(new Course({'courseCode': `COMP303`, 'courseName': 'Java EE Programming', 'section': '002', 'semester': '4'}));
-        courseDocuments.push(new Course({'courseCode': `GNED100`, 'courseName': 'General Course', 'section': '001', 'semester': '5'}));
-        courseDocuments.push(new Course({'courseCode': `COMP308`, 'courseName': 'Emerging Technologies', 'section': '006', 'semester': '5'}));
-        courseDocuments.push(new Course({'courseCode': `COMP123`, 'courseName': 'Programming 2', 'section': '006', 'semester': '2'}));
+        courseDocuments.push(new Course({'courseCode': `COMP311`, 'courseName': 'Software Testing and Quality Assurance (003)', 'section': '003', 'semester': '3'}));
+        courseDocuments.push(new Course({'courseCode': `COMP303`, 'courseName': 'Java EE Programming (001)', 'section': '001', 'semester': '4'}));
+        courseDocuments.push(new Course({'courseCode': `COMP303`, 'courseName': 'Java EE Programming (002)', 'section': '002', 'semester': '4'}));
+        courseDocuments.push(new Course({'courseCode': `COMP303`, 'courseName': 'Java EE Programming (003)', 'section': '003', 'semester': '4'}));
+        courseDocuments.push(new Course({'courseCode': `COMP303`, 'courseName': 'Java EE Programming (004)', 'section': '004', 'semester': '4'}));
+        courseDocuments.push(new Course({'courseCode': `GNED100`, 'courseName': 'General Course (001)', 'section': '001', 'semester': '5'}));
+        courseDocuments.push(new Course({'courseCode': `GNED100`, 'courseName': 'General Course (002)', 'section': '002', 'semester': '5'}));
+        courseDocuments.push(new Course({'courseCode': `COMP308`, 'courseName': 'Emerging Technologies (005)', 'section': '005', 'semester': '5'}));
+        courseDocuments.push(new Course({'courseCode': `COMP308`, 'courseName': 'Emerging Technologies (006)', 'section': '006', 'semester': '5'}));
+        courseDocuments.push(new Course({'courseCode': `COMP123`, 'courseName': 'Programming 2 (001)', 'section': '001', 'semester': '2'}));
     
         Course.create(courseDocuments, (err) => {
             if (err) {
@@ -42,7 +47,7 @@ Course.count((err, count) => {
             'courses': [
                 courseDocuments[0],
                 courseDocuments[1],
-                courseDocuments[2],
+                courseDocuments[6],
             ]
         });
 
@@ -52,8 +57,8 @@ Course.count((err, count) => {
             'email': 'jhenry@gmail.com', 
             'password': 'password', 
             'courses': [
-                courseDocuments[3],
-                courseDocuments[4],
+                courseDocuments[7],
+                courseDocuments[8],
             ]
         });
 
