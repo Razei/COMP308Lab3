@@ -34,9 +34,7 @@ class StudentHome extends React.Component {
             case 'view':
                 return <StudentCourses updateScreen={this.updateScreen} key="list"/>;
             case 'signout':
-                axios.post('http://localhost:3001/signout',{}, {withCredentials: true}).then((result) => {
-                    
-                });
+                axios.post('http://localhost:3001/signout',{}, {withCredentials: true});
                 return <Redirect to='/'  />;
             case 'list-student-courses':
                 return <StudentsByCourse updateScreen={this.updateScreen}/>;
