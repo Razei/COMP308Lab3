@@ -23,42 +23,33 @@ class StudentCourseManagement extends React.Component {
     componentDidMount() {
         axios.post(`${this.apiUrl}/studentCourses/${this.props.match.params.studentId}`).then((result) => {
             this.selectedCourses = result.data;
-            this.setShowLoading(false);
-            // this.props.history.push('/show/' + result.data._id)
-        }).catch((error) => this.setShowLoading(false));
+        }).catch((error) => console.log(error));
 
         axios.get(`${this.apiUrl}/getStudent/${this.props.match.params.studentId}`).then((result)=>{
             const selectedCourses = (result.data.courses);
 
             if (selectedCourses.length > 0){
-                this.setState(prevState => ({...prevState, courses: selectedCourses}));
+                this.setStateByKey(selectedCourses, 'courses');;
             }
         });
 
         axios.get(`${this.apiUrl}/courses`).then((result) => {
             this.allCourses = result.data;
-            this.setShowLoading(false);
-            // this.props.history.push('/show/' + result.data._id)
-        }).catch((error) => this.setShowLoading(false));
+        }).catch((error) => console.log(error));
     }
 
-    setCourseState = (courses) => {
-        this.setState(prevState => ({...prevState, courses: courses}));
-    }
-
-    setShowLoading = (value) => {
-        this.setState(prevState => ({...prevState, showLoading: value }));
+    setStateByKey = (value, key) => {
+        this.setState(prevState => ({...prevState, [key]: value }));
     }
 
     saveCourse = (e) => {
-        this.setShowLoading(true);
+        this.setStateByKey(true, 'showLoading');
         e.preventDefault();
         const data = this.state.courses;
 
-        axios.post(`${this.apiUrl}/student/${this.props.match.params.studentId}/courses`, data).then((result) => {
-            this.setShowLoading(false);
-            // this.props.history.push('/show/' + result.data._id);
-        }).catch((error) => this.setShowLoading(false));
+        axios.post(`${this.apiUrl}/student/${this.props.match.params.studentId}/courses`, data).then(() => {
+            this.setStateByKey(false, 'showLoading');
+        }).catch((error) => this.setStateByKey(false, 'showLoading'));
     };
 
     onSelectChange = (e, index) => {
@@ -66,19 +57,19 @@ class StudentCourseManagement extends React.Component {
 
         let courses = JSON.parse(JSON.stringify(this.state.courses));
         courses[index] = e.target.value;
-        this.setCourseState(courses);
+        this.setStateByKey(courses, 'courses');
     }
 
     addCourse = (e) => {
         let courses = JSON.parse(JSON.stringify(this.state.courses));
         courses.push(e.target.value);
-        this.setCourseState(courses);
+        this.setStateByKey(courses, 'courses');
     }
 
     deleteCourse = (index) => {
         let courses = JSON.parse(JSON.stringify(this.state.courses));
         courses.splice(index, 1);
-        this.setCourseState(courses);
+        this.setStateByKey(courses, 'courses');
     }
 
     render(){

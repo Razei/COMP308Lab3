@@ -20,6 +20,7 @@ tr.clickable{
 
 td {
     max-width: 500px;
+    min-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

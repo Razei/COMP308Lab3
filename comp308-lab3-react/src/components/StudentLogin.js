@@ -3,7 +3,7 @@ import React, { useState, useEffect }  from 'react';
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
 
-class LoginStudent extends React.Component {
+class StudentLogin extends React.Component {
     state = {
         email: '',
         password: '',
@@ -43,7 +43,7 @@ class LoginStudent extends React.Component {
             }
 
             //call api
-            const res = await axios.post(`${this.apiUrl}/signin`, loginData,this.axiosConfig);
+            const res = await axios.post(`${this.apiUrl}/signin`, loginData, this.axiosConfig);
 
             if (res.data.role && res.data.role === "student"){
                 res.user = res.data;
@@ -115,4 +115,4 @@ class LoginStudent extends React.Component {
     }
 }
 
-export default withRouter(LoginStudent);
+export default withRouter(StudentLogin);

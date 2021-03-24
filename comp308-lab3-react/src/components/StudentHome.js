@@ -1,15 +1,17 @@
-import {withRouter} from 'react-router-dom';
+import {Redirect, withRouter} from 'react-router-dom';
 import React from 'react';
 import StudentCourseManagement from './StudentCourseManagement';
 import StudentCourses from './StudentCourses';
 import StudentList from "./StudentList";
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
+import StudentsByCourse from './StudentsByCourse';
 
 class StudentHome extends React.Component {
     state = {screen: ''};
+    
     constructor(props){
-        super();
+        super(props);
         this.state = props.screen || '';
         this.title = props.title;
         this.indexData = props.data;
@@ -32,8 +34,12 @@ class StudentHome extends React.Component {
             case 'view':
                 return <StudentCourses updateScreen={this.updateScreen} key="list"/>;
             case 'signout':
-                axios.post('http://localhost:3001/signout').then(this.props.history.push('/'));
-                break;
+                axios.post('http://localhost:3001/signout',{}, {withCredentials: true}).then((result) => {
+                    
+                });
+                return <Redirect to='/'  />;
+            case 'list-student-courses':
+                return <StudentsByCourse updateScreen={this.updateScreen}/>;
             case 'list':
                 return <StudentList updateScreen={this.updateScreen}/>;
             default: 

@@ -1,5 +1,5 @@
 import Home from "./components/Home";
-import LoginStudent from "./components/StudentLogin";
+import StudentLogin from "./components/StudentLogin";
 import StudentSignUp from "./components/StudentSignUp";
 import React from "react";
 import {
@@ -8,7 +8,6 @@ import {
     Switch,
 } from "react-router-dom";
 import StudentHome from "./components/StudentHome";
-
 
 // constant index data for home page
 const indexData = [{
@@ -42,10 +41,17 @@ const studentHomeData = [
     },
 
     {
-        icon: "bi bi-people-fill",
+        icon: "bi bi-people",
         link: "/student/list",
         linkText: "List All Students",
         screen: "list"
+    },
+
+    {
+        icon: "bi bi-person-lines-fill",
+        link: "#",
+        linkText: "List Students By Course",
+        screen: "list-student-courses"
     },
 
     {
@@ -59,16 +65,16 @@ const studentHomeData = [
 ];
 
 function App() {
-  return (
-      <Router>
-          <Switch>
-              <Route exact path="/" ><Home title={"Course Evaluation"} data={indexData} screen={'index'}/></Route>
-              <Route path="/student/login"><LoginStudent/></Route>
-              <Route path="/student/signup"><StudentSignUp/></Route>
-              <Route path="/student/:studentId"><StudentHome title={"Student Home"} data={studentHomeData}/></Route>
-          </Switch>
-      </Router>
-  );
+    return (
+        <Router>
+            <Switch>
+                <Route exact path="/" ><Home title={"Course Evaluation"} data={indexData} screen={'index'}/></Route>
+                <Route path="/student/login"><StudentLogin/></Route>
+                <Route path="/student/signup"><StudentSignUp/></Route>
+                <Route path="/student/:studentId"><StudentHome title={"Student Home"} data={studentHomeData}/></Route>
+            </Switch>
+        </Router>
+    );
 }
 
 export default App;

@@ -12,6 +12,7 @@ module.exports = function (app) {
     app.get('/read_cookie', studentController.isSignedIn);
 
     app.get("/students", studentController.getAllStudents);
+    app.get("/studentsCourses", studentController.getAllStudentsAndCourses);
    
     app.get("/students/:id", studentController.getAllStudentsByCourse);
     app.post("/student/:id/courses", studentController.updateStudentCourses);

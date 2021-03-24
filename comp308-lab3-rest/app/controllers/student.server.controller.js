@@ -66,11 +66,8 @@ module.exports = {
     //sign out function in controller
     //deletes the token on the client side by clearing the cookie named 'token'
     signout: (req, res) => {
-       
-        res.clearCookie("token")
+        res.clearCookie("token");
         return res.status('200').json({message: "signed out"})
-        // Redirect the user back to the main application page
-        //res.redirect('/');
     },
 
     //check if the user is signed in
@@ -145,6 +142,19 @@ module.exports = {
                 res.json(users);
             }
         });
+    },
+
+    getAllStudentsAndCourses: (_req, res, next) => {
+        // Use the 'Student' instance's 'find' method to retrieve a new user document
+        Student.find({}, function (err, users) {
+            if (err) {
+                return next(err);
+            }
+        }).populate({
+            path: 'courses'
+        }).then((students) => {
+            res.json(students);
+        });;
     },
 
     createStudent: (req, res, next) => {

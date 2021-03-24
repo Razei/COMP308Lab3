@@ -2,6 +2,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 
 class StudentCourses extends React.Component {
 
@@ -23,17 +24,10 @@ class StudentCourses extends React.Component {
         this.courseObjects = [];
     }
 
-
-  
-    
-   
     componentDidMount() {
-        
         axios.get(`${this.apiUrl}/getStudent/${this.props.match.params.studentId}`).then((result)=>{
-            
             console.log(result.data.courses);
             this.courses =(result.data.courses);
-           
             console.log(this.courses);
 
             this.courses.forEach(course =>{
@@ -43,49 +37,50 @@ class StudentCourses extends React.Component {
                     console.log(this.courseObjects.length);
                     this.forceUpdate();
                 }));
-               
-               
             }) ;
+
             console.log(this.courseObjects.length);
-            
-            
-           
-                
-                
-            
         });
-     
     }
 
     render() {
-        return <div>
-            <div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Course Name</th>
-        <th scope="col">Course Code</th>
-        <th scope="col">Section</th>
-        <th scope="col">Semester</th>
-      </tr>
-        
-     {this.courseObjects.map((course,index)=>{
-         return <tr>
-             <td>{index}</td>
-             <td key={index}>{course.courseName}</td>
-             <td>{course.courseCode}</td>
-             <td>{course.section}</td>
-             <td>{course.semester}</td>
-         </tr>
-     })}
-    </thead>
-    <tbody>
-     
-    </tbody>
-  </table>
-</div>
-        </div>;
+        return (
+            <div className="absolute-centered">
+                <Button className="mb-4" variant="primary" onClick={() => this.props.updateScreen('')}>
+                    <i style={this.iconStyle} className="bi bi-arrow-left-square-fill"></i>
+                </Button>
+                
+                <div className="table-responsive shadowed rounded-custom">
+                    <div className="tableTitle gradient-1 d-flex justify-content-center align-items-center">
+                        <span>Courses</span>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Course Name</th>
+                                <th scope="col">Course Code</th>
+                                <th scope="col">Section</th>
+                                <th scope="col">Semester</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {this.courseObjects.map((course,index)=>{
+                                return <tr>
+                                    <td>{index}</td>
+                                    <td key={index}>{course.courseName}</td>
+                                    <td>{course.courseCode}</td>
+                                    <td>{course.section}</td>
+                                    <td>{course.semester}</td>
+                                </tr>
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        );
     }
 }
 
